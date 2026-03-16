@@ -3,7 +3,7 @@ services:
     runtime: python
     name: advanced-quiz-exam-bot
     buildCommand: pip install -r requirements.txt
-    startCommand: python main-3.py
+    startCommand: python main-4.py
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.11
