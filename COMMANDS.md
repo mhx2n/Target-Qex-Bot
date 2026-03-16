@@ -1,26 +1,51 @@
-# Command List
+# Target Exam Robot — Commands
 
-সব command `/` এবং `.` — দুই prefix এই কাজ করবে।
+সব command দুইভাবে কাজ করবে:
+- `/command`
+- `.command`
 
-## সবার জন্য (Private)
-- `/start` — বট activate করবে, DM result enable করবে
-- `/help` বা `/commands` — command list দেখাবে
+## সবাই (Private)
+- `/start` — bot activate / result DM enable
+- `/help` / `/commands` / `/cmds` — command list
 
 ## Admin / Owner (Private)
-- `/panel` — button based admin panel
-- `/newexam` — নতুন exam draft তৈরি
-- `/drafts` বা `/mydrafts` — নিজের draft list
-- `/csvformat` — CSV header format দেখাবে
-- `/cancel` — চলমান input flow cancel করবে
+- `/panel` — owner/admin inline panel
+- `/newexam` — new exam draft create
+- `/drafts` / `/mydrafts` — my drafts
+- `/csvformat` — CSV format help
+- `/cancel` / `/cancelstate` — current input flow cancel
 
 ## Owner only (Private)
-- `/addadmin USER_ID` — bot admin add
-- `/rmadmin USER_ID` — bot admin remove
+- `/addadmin [user_id]` — add bot admin
+- `/rmadmin [user_id]` — remove bot admin
 - `/admins` — admin list
-- `/audit` — recent admin action log
-- `/logs` — memory, uptime, last-hour error summary + full log file
-- `/broadcast` — সব known group + started user inbox এ broadcast
-- `/broadcast pin` — group এ pin সহ broadcast
+- `/audit` — recent admin actions
+- `/logs` — memory, uptime, recent errors + full log
+- `/broadcast [pin]` — all groups + started users
+- `/announce CHAT_ID [pin]` — one target chat
+
+## Group Admin / Bot Admin
+- `/binddraft CODE` — bind draft manually to this group
+- `/examstatus` — bound draft + active exam status
+- `/starttqex` — start exam now
+- `/stoptqex` — stop running exam
+- `/schedule YYYY-MM-DD HH:MM` — schedule exam
+- `/listschedules` / `/schedules` — scheduled exams list
+- `/cancelschedule SCHEDULE_ID` / `/unschedule SCHEDULE_ID` — cancel schedule
+- `/help` / `/commands` — group command list
+
+## CSV minimum format
+Required columns:
+- `questions`
+- `option1`
+- `option2`
+- `answer`
+
+Optional columns:
+- `option3` ... `option10`
+- `explanation`
+- `type`
+- `section`
 - `/announce CHAT_ID` — specific chat এ announce
 - `/announce CHAT_ID pin` — specific chat এ pin সহ announce
 
