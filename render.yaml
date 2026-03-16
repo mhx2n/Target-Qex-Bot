@@ -1,0 +1,29 @@
+services:
+  - type: web
+    runtime: python
+    name: advanced-quiz-exam-bot
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.11
+      - key: BOT_TOKEN
+        sync: false
+      - key: OWNER_IDS
+        sync: false
+      - key: REQUIRED_CHANNEL
+        value: @FX_Ur_Target
+      - key: BOT_BRAND
+        value: Target Exam Robot
+      - key: TZ
+        value: Asia/Dhaka
+      - key: RESULT_RETENTION_HOURS
+        value: 24
+      - key: SCOREBOARD_TOP_N
+        value: 10
+      - key: COUNTDOWN_SECONDS
+        value: 5
+      - key: AUTO_DELETE_CONTROL_AFTER
+        value: 20
+      - key: LOG_LEVEL
+        value: INFO
