@@ -1,67 +1,39 @@
-# Target Exam Robot — Commands
+# Commands
 
-সব command দুইভাবে কাজ করবে:
-- `/command`
-- `.command`
+## Common
+- /start , .start — activate bot / DM result permission
+- /help , /commands , .help , .commands — show categorized commands
+- /panel , .panel — open panel (staff only)
+- /cancel , .cancel — cancel current input flow
 
-## সবাই (Private)
-- `/start` — bot activate / result DM enable
-- `/help` / `/commands` / `/cmds` — command list
+## Owner only (PM)
+- /newexam , .newexam — create exam draft
+- /mydrafts , .mydrafts — list drafts
+- /admins , .admins — admin list
+- /addadmin USER_ID — add admin
+- /rmadmin USER_ID — remove admin
+- /logs , .logs — log summary + log file
+- /audit , .audit — recent audit actions
+- /broadcast [pin] — broadcast to groups + started users
+- /announce CHAT_ID [pin] — send to one target chat
+- /restart , .restart — restart bot process
 
-## Admin / Owner (Private)
-- `/panel` — owner/admin inline panel
-- `/newexam` — new exam draft create
-- `/drafts` / `/mydrafts` — my drafts
-- `/csvformat` — CSV format help
-- `/cancel` / `/cancelstate` — current input flow cancel
+## Bot admin / owner (PM)
+- /newexam , .newexam — create draft
+- forward quiz poll in PM — import question
+- upload CSV in PM — bulk import
+- /mydrafts , .mydrafts — list drafts
+- /csvformat , .csvformat — CSV format help
 
-## Owner only (Private)
-- `/addadmin [user_id]` — add bot admin
-- `/rmadmin [user_id]` — remove bot admin
-- `/admins` — admin list
-- `/audit` — recent admin actions
-- `/logs` — memory, uptime, recent errors + full log
-- `/broadcast [pin]` — all groups + started users
-- `/announce CHAT_ID [pin]` — one target chat
+## Group admin / bot admin
+- /binddraft CODE , .binddraft CODE — bind draft to group manually
+- /starttqex , .starttqex — send ready button; exam starts after 2 users click
+- /stoptqex , .stoptqex — stop active exam
+- /schedule YYYY-MM-DD HH:MM — schedule exam
+- /listschedules , .listschedules — list schedules
+- /cancelschedule ID , .cancelschedule ID — cancel schedule
+- /examstatus , .examstatus — show bound draft / active exam info
 
-## Group Admin / Bot Admin
-- `/binddraft CODE` — bind draft manually to this group
-- `/examstatus` — bound draft + active exam status
-- `/starttqex` — start exam now
-- `/stoptqex` — stop running exam
-- `/schedule YYYY-MM-DD HH:MM` — schedule exam
-- `/listschedules` / `/schedules` — scheduled exams list
-- `/cancelschedule SCHEDULE_ID` / `/unschedule SCHEDULE_ID` — cancel schedule
-- `/help` / `/commands` — group command list
-
-## CSV minimum format
-Required columns:
-- `questions`
-- `option1`
-- `option2`
-- `answer`
-
-Optional columns:
-- `option3` ... `option10`
-- `explanation`
-- `type`
-- `section`
-- `/announce CHAT_ID` — specific chat এ announce
-- `/announce CHAT_ID pin` — specific chat এ pin সহ announce
-
-## Group Admin / Bot Admin (Group)
-- `/binddraft CODE` — target group এ draft bind
-- `/examstatus` — current bound draft / active exam status
-- `/starttqex` — exam শুরু
-- `/stoptqex` — exam বন্ধ
-- `/schedule YYYY-MM-DD HH:MM` — scheduled exam
-- `/listschedules` — scheduled exam list
-- `/cancelschedule SCHEDULE_ID` — schedule cancel
-- `/help` বা `/commands` — group command list
-
-## Flow
-1. PM এ `/newexam`
-2. Title → time/question → negative mark দিন
-3. Quiz poll forward করুন অথবা CSV upload করুন
-4. Group এ `/binddraft CODE`
-5. `/starttqex` অথবা `/schedule YYYY-MM-DD HH:MM`
+## User
+- /start — enable DM result delivery
+- /help — see public help
