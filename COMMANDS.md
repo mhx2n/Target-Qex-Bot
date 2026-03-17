@@ -1,39 +1,41 @@
 # Commands
 
-## Common
-- /start , .start — activate bot / DM result permission
-- /help , /commands , .help , .commands — show categorized commands
-- /panel , .panel — open panel (staff only)
-- /cancel , .cancel — cancel current input flow
+সব command `/` এবং `.` — দুই prefix এই কাজ করবে।
 
-## Owner only (PM)
-- /newexam , .newexam — create exam draft
-- /mydrafts , .mydrafts — list drafts
-- /admins , .admins — admin list
-- /addadmin USER_ID — add admin
-- /rmadmin USER_ID — remove admin
-- /logs , .logs — log summary + log file
-- /audit , .audit — recent audit actions
-- /broadcast [pin] — broadcast to groups + started users
-- /announce CHAT_ID [pin] — send to one target chat
-- /restart , .restart — restart bot process
+## Everyone (Private)
+- `/start` — bot activate / result DM enable
+- `/start practice_TOKEN` — practice exam start
+- `/help` or `/commands` — command list
 
-## Bot admin / owner (PM)
-- /newexam , .newexam — create draft
-- forward quiz poll in PM — import question
-- upload CSV in PM — bulk import
-- /mydrafts , .mydrafts — list drafts
-- /csvformat , .csvformat — CSV format help
+## Admin / Owner (Private)
+- `/panel` — button panel
+- `/newexam` — new draft create
+- `/drafts` or `/mydrafts` — my drafts
+- `/csvformat` — CSV import format
+- `/cancel` — current input flow cancel
 
-## Group admin / bot admin
-- /binddraft CODE , .binddraft CODE — bind draft to group manually
-- /starttqex , .starttqex — send ready button; exam starts after 2 users click
-- /stoptqex , .stoptqex — stop active exam
-- /schedule YYYY-MM-DD HH:MM — schedule exam
-- /listschedules , .listschedules — list schedules
-- /cancelschedule ID , .cancelschedule ID — cancel schedule
-- /examstatus , .examstatus — show bound draft / active exam info
+## Owner Only (Private)
+- `/addadmin USER_ID` — add bot admin
+- `/rmadmin USER_ID` — remove bot admin
+- `/admins` — admin list
+- `/audit` — recent admin actions
+- `/logs` — memory, uptime, recent errors + full log
+- `/broadcast [pin]` — send to all groups + started users
+- `/announce CHAT_ID [pin]` — send to one target chat
+- `/restart` — restart bot process
 
-## User
-- /start — enable DM result delivery
-- /help — see public help
+## Group Admin / Bot Admin
+- `/binddraft CODE` — bind draft manually
+- `/examstatus` — current binding / running exam status
+- `/starttqex` — start active/bound draft with ready button
+- `/starttqex DRAFTCODE` — start a specific draft code with ready button
+- `/stoptqex` — stop running exam
+- `/schedule YYYY-MM-DD HH:MM` — schedule exam
+- `/listschedules` — list schedules
+- `/cancelschedule SCHEDULE_ID` — cancel schedule
+
+## Notes
+- Non-admin users group-এ command দিলে bot message delete করার চেষ্টা করবে এবং temporary warning দেবে.
+- Group exam start হওয়ার ready button সবাই press করতে পারবে.
+- Practice link draft card-এ দেখাবে, এবং প্রতি user max 3 attempts পাবে.
+- PDF report owner/admin inbox-এ যায় যদি তারা bot-কে private এ আগে `/start` দিয়ে থাকে.
