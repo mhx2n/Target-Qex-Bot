@@ -4557,9 +4557,9 @@ def get_session_ranking(session_id: str) -> List[Dict[str, Any]]:
         (session_id,),
     )
     ranking: List[Dict[str, Any]] = []
-    total_questions = int(session["total_questions"])
-    session_started = int(session["started_at"] or session.get("created_at") or now_ts())
-    default_window = max(1, int(session.get("question_time") or 0))
+    total_questions = int(_row_value(session, "total_questions", 0) or 0)
+    session_started = int(_row_value(session, "started_at", 0) or _row_value(session, "created_at", 0) or now_ts())
+    default_window = max(1, int(_row_value(session, "question_time", _row_value(session, "per_question_seconds", 0)) or 0))
     qrows = DBH.fetchall("SELECT q_no, open_ts, close_ts FROM session_questions WHERE session_id=? ORDER BY q_no", (session_id,))
     qmeta = {
         int(q["q_no"]): {
