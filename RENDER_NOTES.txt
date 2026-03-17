@@ -1,0 +1,13 @@
+Use these on Render:
+
+Build Command:
+pip install -r requirements.txt && python -m playwright install chromium
+
+Start Command:
+python main.py
+
+Recommended env:
+PYTHON_VERSION=3.11.11
+BOT_TOKEN=...
+OWNER_IDS=123456789
+REQUIRED_CHANNEL=@FX_Ur_Target
