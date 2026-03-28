@@ -1,0 +1,108 @@
+--- /mnt/data/Target_exqex_version3.py	2026-03-28 11:33:34.168246552 +0000
++++ /mnt/data/Target_exqex_version3_unlimited_practice.py	2026-03-28 11:34:53.764801038 +0000
+@@ -669,7 +669,7 @@
+ 
+ 
+ 
+-def ensure_practice_link(draft_id: str, created_by: int, max_attempts: int = 3) -> sqlite3.Row:
++def ensure_practice_link(draft_id: str, created_by: int, max_attempts: int = 0) -> sqlite3.Row:
+     row = DBH.fetchone("SELECT * FROM practice_links WHERE draft_id=?", (draft_id,))
+     if row:
+         if int(row["max_attempts"]) != max_attempts:
+@@ -1265,8 +1265,9 @@
+         return
+     attempts = get_practice_attempts(row["draft_id"], user.id)
+     max_attempts = int(row["max_attempts"])
+-    if attempts >= max_attempts:
+-        await safe_reply(message, f"EN EN practice exam EN {max_attempts} EN EN।")
++    practice_unlimited = max_attempts <= 0
++    if (not practice_unlimited) and attempts >= max_attempts:
++        await safe_reply(message, f"You have already used this practice exam {max_attempts} time(s).")
+         return
+     if get_active_session(user.id):
+         await safe_reply(message, "EN inbox EN EN EN EN exam/practice EN। EN EN EN EN EN।")
+@@ -1283,7 +1284,7 @@
+         f"Questions: <b>{q_count}</b>\n"
+         f"Time / question: <b>{row['question_time']} sec</b>\n"
+         f"Negative / wrong: <b>{row['negative_mark']}</b>\n"
+-        f"Attempt: <b>{new_attempt}/{max_attempts}</b>",
++        f"Attempt: <b>{new_attempt}</b> ({'Unlimited while draft is saved' if practice_unlimited else f'Limit: {max_attempts}'})",
+         parse_mode=ParseMode.HTML,
+     )
+     await start_exam_countdown(context, session_id)
+@@ -1574,7 +1575,7 @@
+         practice_line = (
+             f"\n\n<b>Practice Link</b>\n"
+             f"<a href=\"{practice_url}\">Open practice in bot inbox</a>\n"
+-            f"Max attempts per user: <b>{practice['max_attempts']}</b>"
++            f"Max attempts per user: <b>{'Unlimited' if int(practice['max_attempts']) <= 0 else practice['max_attempts']}</b><br/>Works until this draft is kept saved."
+         )
+     text = (
+         f"{header}\n" if header else ""
+@@ -3748,8 +3749,9 @@
+         return
+     attempts = get_practice_attempts(row["draft_id"], user.id)
+     max_attempts = int(row["max_attempts"])
+-    if attempts >= max_attempts:
+-        await safe_reply(message, f"EN EN practice exam EN {max_attempts} EN EN।")
++    practice_unlimited = max_attempts <= 0
++    if (not practice_unlimited) and attempts >= max_attempts:
++        await safe_reply(message, f"You have already used this practice exam {max_attempts} time(s).")
+         return
+     if get_active_session(user.id):
+         await safe_reply(message, "EN inbox EN EN EN EN exam/practice EN। EN EN EN EN EN।")
+@@ -3766,7 +3768,7 @@
+         f"Questions: <b>{q_count}</b>\n"
+         f"Time / question: <b>{row['question_time']} sec</b>\n"
+         f"Negative / wrong: <b>{row['negative_mark']}</b>\n"
+-        f"Attempt: <b>{new_attempt}/{max_attempts}</b>",
++        f"Attempt: <b>{new_attempt}</b> ({'Unlimited while draft is saved' if practice_unlimited else f'Limit: {max_attempts}'})",
+         parse_mode=ParseMode.HTML,
+     )
+     await start_exam_countdown(context, session_id, existing_message_id=sent.message_id if sent else None)
+@@ -5071,7 +5073,7 @@
+         practice_line = (
+             f"\n\n<b>Practice Link</b>\n"
+             f"<a href=\"{practice_url}\">Open practice in bot inbox</a>\n"
+-            f"Max attempts per user: <b>{practice['max_attempts']}</b>"
++            f"Max attempts per user: <b>{'Unlimited' if int(practice['max_attempts']) <= 0 else practice['max_attempts']}</b><br/>Works until this draft is kept saved."
+         )
+     text = ((f"{header}\n" if header else "") + (
+         f"<b>Draft:</b> {html_escape(draft['title'])}\n"
+@@ -5205,7 +5207,8 @@
+         return
+     attempts = get_practice_attempts(row["draft_id"], user.id)
+     max_attempts = int(row["max_attempts"])
+-    if attempts >= max_attempts:
++    practice_unlimited = max_attempts <= 0
++    if (not practice_unlimited) and attempts >= max_attempts:
+         await safe_reply(message, f"You have already used this practice exam {max_attempts} time(s).")
+         return
+     if get_active_session(user.id):
+@@ -5223,7 +5226,7 @@
+         f"Questions: <b>{q_count}</b>\n"
+         f"Time / question: <b>{row['question_time']} sec</b>\n"
+         f"Negative / wrong: <b>{row['negative_mark']}</b>\n"
+-        f"Attempt: <b>{new_attempt}/{max_attempts}</b>",
++        f"Attempt: <b>{new_attempt}</b> ({'Unlimited while draft is saved' if practice_unlimited else f'Limit: {max_attempts}'})",
+         parse_mode=ParseMode.HTML,
+     )
+     await start_exam_countdown(context, session_id, existing_message_id=sent.message_id if sent else None)
+@@ -6201,7 +6204,7 @@
+         practice_line = (
+             f"\n\n<b>Practice Link</b>\n"
+             f"<a href=\"{practice_url}\">Open practice in bot inbox</a>\n"
+-            f"Max attempts per user: <b>{practice['max_attempts']}</b>"
++            f"Max attempts per user: <b>{'Unlimited' if int(practice['max_attempts']) <= 0 else practice['max_attempts']}</b><br/>Works until this draft is kept saved."
+         )
+     text = ((f"{header}\n" if header else "") + (
+         f"<b>Draft:</b> {html_escape(draft['title'])}\n"
+@@ -8300,7 +8303,7 @@
+         practice_line = (
+             f"\n\n<b>Practice Link</b>\n"
+             f"<a href=\"{practice_url}\">Open practice in bot inbox</a>\n"
+-            f"Max attempts per user: <b>{practice['max_attempts']}</b>"
++            f"Max attempts per user: <b>{'Unlimited' if int(practice['max_attempts']) <= 0 else practice['max_attempts']}</b><br/>Works until this draft is kept saved."
+         )
+     text = ((f"{header}\n" if header else '') + (
+         f"<b>Draft:</b> {html_escape(draft['title'])}\n"
